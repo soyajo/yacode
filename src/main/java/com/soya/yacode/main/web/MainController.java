@@ -1,6 +1,7 @@
 package com.soya.yacode.main.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -11,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 5. 이메일     : whthdi4693@naver.com
  */
 @Controller
-@RequestMapping(value = {"/"})
 public class MainController {
 
-
+    @GetMapping(value = {"/","/index.html"})
     public String index() {
 
-        return "";
+
+        return "main/index";
     }
 
 }
