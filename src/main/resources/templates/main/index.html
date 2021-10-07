@@ -9,6 +9,8 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
+    <th:block th:replace="thymeleaf/flagments/resources :: css"></th:block>
+    <th:block th:replace="thymeleaf/flagments/resources :: js"></th:block>
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -139,7 +141,7 @@
         </div>
         <!--About Section Button-->
         <div class="text-center mt-4">
-            <a class="btn btn-xl btn-outline-light" th:href="@{blog/main}">
+            <a class="btn btn-xl btn-outline-light" th:href="@{blog/index.html}">
                 <i class="fas fa-download mr-2"></i>
                 야코딩 블로그
             </a>

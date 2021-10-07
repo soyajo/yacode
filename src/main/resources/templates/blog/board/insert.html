@@ -1,0 +1,60 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{thymeleaf/layout/blog}">
+<head>
+    <!--<th:block xmlns:th="http://www.thymeleaf.org" layout:fragment="custom_css"></th:block>
+    <th:block xmlns:th="http://www.thymeleaf.org" layout:fragment="custom_js"></th:block>-->
+    <script>
+        function insert_fn() {
+
+        }
+
+        function update_fn() {
+
+
+        }
+    </script>
+</head>
+
+<th:block layout:fragment="content" xmlns:th="http://www.thymeleaf.org" >
+
+    <div id="services" class="bg-light pt-3 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto">
+                    <div class="card">
+                        <div class="card-body" >
+                            <div class="float-right">
+                                <a type="button" class="btn btn-sm btn-info" th:href="@{./list.html}">목록</a>
+                            </div>
+                            <form th:object="${BoardVO}" th:action="@{./insertAction.html}" th:method="post">
+                                <h5 th:if="${bdNo != 0}">게시판 수정</h5>
+                                <h5 th:if="${bdNo == 0}">게시판 등록</h5>
+                                <div class="float-right">
+                                </div>
+                                <hr/>
+                                <table class="table table-striped gong_tb text-center">
+                                    <tr>
+                                        <th> 제목 </th>
+                                        <td>
+                                            <input class="form-control" type="text" th:id="bdContents" th:field="*{bdTitle}" th:value="${BoardVO.bdTitle}" name="bdTitle" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th> 내용 </th>
+                                        <td>
+                                            <textarea class="tt-form form-control" name="bdContents" th:id="bdContents" th:field="*{bdContents}" th:value="${BoardVO.bdContents}" required></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="float-right">
+
+                                    <button class="btn btn-success" type="submit" th:if="${bdNo == 0}" onclick="insert_fn()">등록</button>
+                                    <button class="btn btn-success" type="submit" th:if="${bdNo != 0}" onclick="update_fn()">수정</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

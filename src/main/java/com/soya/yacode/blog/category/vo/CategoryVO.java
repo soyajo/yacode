@@ -26,6 +26,8 @@ public class CategoryVO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ctgrNo;
 
+    private Integer ctgrSecNo;
+
     @Column(columnDefinition = "TEXT")
     private String ctgrTitle;
 

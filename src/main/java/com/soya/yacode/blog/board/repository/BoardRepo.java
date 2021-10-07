@@ -1,6 +1,8 @@
 package com.soya.yacode.blog.board.repository;
 
 import com.soya.yacode.blog.board.vo.BoardVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardRepo extends JpaRepository<BoardVO, Integer> {
 
+    Page<BoardVO> findAllByBdTitleContaining(Pageable pageable, String searchTitle);
 
+    BoardVO findByBdNo(Integer bdNo);
 }

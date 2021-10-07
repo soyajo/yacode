@@ -1,5 +1,6 @@
 package com.soya.yacode.blog.board.vo;
 
+import com.soya.common.vo.BaseVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "board")
-public class BoardVO {
+public class BoardVO extends BaseVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>야코딩 블로그</title>
+        <th:block th:replace="thymeleaf/flagments/resources :: css"></th:block>
+        <th:block th:replace="thymeleaf/flagments/resources :: js"></th:block>
+    </head>
+    <style>
+        header{
+            background-image: url("/img/code_bg.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+
+        }
+
+        .gong_table{
+            table-layout: fixed;
+        }
+
+    </style>
+    <body id="page-top" class="bg-light">
+
+        <th:block th:replace="thymeleaf/flagments/topbar ::  topbar" ></th:block>
+
+
+        <header class="bg-primary text-white">
+            <div class="container text-center">
+                <h1>Welcome to YaCode Blog</h1>
+                <p class="lead">Hello, World!!</p>
+            </div>
+        </header>
+        <div class="" style="min-height: 1000px">
+            <th:block layout:fragment="content"></th:block>
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <th:block th:replace="thymeleaf/flagments/footer ::  footer"></th:block>
+            </div>
+            <!-- /.container -->
+        </footer>
+    </body>
+
+</html>

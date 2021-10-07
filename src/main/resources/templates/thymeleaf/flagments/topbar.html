@@ -1,0 +1,24 @@
+<th:block th:fragment="topbar" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" th:href="@{/blog/index.html}">야코딩 블로그</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about"></a>
+                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link js-scroll-trigger" href="#services">내게시판</a>-->
+<!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#login">로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</th:block>

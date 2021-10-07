@@ -1,0 +1,53 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{thymeleaf/layout/blog}">
+<head>
+    <!--<th:block xmlns:th="http://www.thymeleaf.org" layout:fragment="custom_css"></th:block>
+    <th:block xmlns:th="http://www.thymeleaf.org" layout:fragment="custom_js"></th:block>-->
+</head>
+
+<th:block layout:fragment="content" xmlns:th="http://www.thymeleaf.org" >
+
+    <div id="services" class="bg-light pt-3 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            게시판 리스트
+                            <div class="float-right">
+                                <a type="button" class="btn btn-success btn-sm" th:href="@{/blog/board/insert.html}">
+                                    등록
+                                </a>
+                            </div>
+                            <hr/>
+                            <table class="table table-striped gong_tb text-center">
+                                <thead>
+                                <tr>
+                                    <th class="">번호</th>
+                                    <th class="">제목</th>
+                                    <th class="">작성자</th>
+                                    <th class="">등록일</th>
+                                    <th class="">댓글수</th>
+                                    <th class="">조회수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item, i :${boardVOS}">
+                                    <td class="" th:text="${item.bdNo}" ></td>
+                                    <td class=""><a th:href="@{./view.html(bdNo=${item.bdNo})}" th:text="${item.bdTitle}"></a></td>
+                                    <td class="">관리자</td>
+                                    <td class="">2021.01.26</td>
+                                    <td class="">1</td>
+                                    <td class="">4</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination justify-content-center bg-white pt-2 pb-2">
+                                <th:block th:replace="@{common/pagination/default}" ></th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

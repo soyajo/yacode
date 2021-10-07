@@ -1,0 +1,132 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{thymeleaf/layout/blog}">
+<head>
+    <!--<th:block xmlns:th="http://www.thymeleaf.org" layout:fragment="custom_css"></th:block>
+    <th:block xmlns:th="http://www.thymeleaf.org" layout:fragment="custom_js"></th:block>-->
+</head>
+
+<th:block layout:fragment="content" xmlns:th="http://www.thymeleaf.org" >
+    <div id="about" class="bg-light pt-3 pb-3">
+        <div class="container">
+            <div class="text-left row brand_row mt-0">
+                <div class="col-lg-6 mx-auto">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            카테고리
+                            <hr/>
+                            <ul class="list-group">
+                                <li class="list-group-item ctgr_li">
+                                    1 java (10)
+                                </li>
+                                <li class="list-group-item ctgr_li">
+                                    2 javascript (4)
+                                </li>
+                                <li class="list-group-item ctgr_li">
+                                    3 sql (15)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mx-auto">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            공지사항
+                            <div class="float-right">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    + 더보기
+                                </button>
+                            </div>
+                            <hr/>
+                            <table class="table table-striped gong_tb text-center gong_table" >
+                                <colgroup>
+                                    <col style="width: 80px">
+                                    <col style="width: 160px">
+                                    <col style="width: 80px">
+                                    <col style="width: 120px">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th class="tg-amwm">번호</th>
+                                    <th class="tg-amwm">제목</th>
+                                    <th class="tg-amwm">작성자</th>
+                                    <th class="tg-amwm">등록일</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="tg-baqh">3</td>
+                                    <td class="tg-0lax">코로나안내</td>
+                                    <td class="tg-baqh">관리자</td>
+                                    <td class="tg-baqh">2021.01.28</td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-baqh">2</td>
+                                    <td class="tg-0lax">등록안내</td>
+                                    <td class="tg-baqh">관리자</td>
+                                    <td class="tg-baqh">2021.01.26</td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-baqh">1</td>
+                                    <td class="tg-0lax">회원안내</td>
+                                    <td class="tg-baqh">관리자</td>
+                                    <td class="tg-baqh">2021.01.01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="services" class="bg-light pt-3 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            게시판 리스트
+                            <div class="float-right">
+                                <a type="button" class="btn btn-default btn-sm" th:href="@{/blog/board/list.html}">
+                                    + 더보기
+                                </a>
+                            </div>
+                            <hr/>
+                            <table class="table table-striped gong_tb text-center">
+                                <thead>
+                                <tr>
+                                    <th class="">번호</th>
+                                    <th class="">제목</th>
+                                    <th class="">작성자</th>
+                                    <th class="">등록일</th>
+                                    <th class="">댓글수</th>
+                                    <th class="">조회수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="">2</td>
+                                    <td class=""><a th:href="@{blog/view}">등록안내</a></td>
+                                    <td class="">관리자</td>
+                                    <td class="">2021.01.26</td>
+                                    <td class="">1</td>
+                                    <td class="">4</td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-baqh">1</td>
+                                    <td class="tg-baqh">회원가입인사</td>
+                                    <td class="tg-baqh">하이</td>
+                                    <td class="tg-baqh">2021.01.15</td>
+                                    <td class="tg-baqh">4</td>
+                                    <td class="tg-baqh">5</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
