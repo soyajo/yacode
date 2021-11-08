@@ -29,4 +29,7 @@ public class BoardVO extends BaseVO {
 
     private String bdTitle;
 
+    private Integer bdViewCnt;
+
+
 }

@@ -59,4 +59,21 @@ public class BoardServiceImpl implements BoardService {
             }
         }
     }
+
+    @Override
+    public void update_view_cnt(BoardVO boardVO) {
+        if (boardVO != null) {
+            if (boardVO.getBdNo() != null && !boardVO.getBdNo().equals("")) {
+                BoardVO boardVO1 = boardRepo.findByBdNo(boardVO.getBdNo());
+                if (boardVO1 != null) {
+                    if (boardVO1.getBdViewCnt() != null && boardVO1.getBdViewCnt() < 1) {
+                        boardVO1.setBdViewCnt(1);
+                    } else if (boardVO1.getBdViewCnt()!= null && boardVO1.getBdViewCnt() > 0) {
+                        boardVO1.setBdViewCnt(boardVO1.getBdViewCnt() + 1);
+                    }
+                }
+            }
+        }
+    }
+
 }

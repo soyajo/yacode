@@ -21,4 +21,6 @@ public interface BoardService {
     BoardVO selectOne(Integer bdNo);
 
     void update(BoardVO boardVO);
+
+    void update_view_cnt(BoardVO boardVO);
 }

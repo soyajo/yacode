@@ -91,6 +91,8 @@ public class BoardController extends BaseController {
         model.addAttribute("nlString",nlString);
 
         BoardVO boardVO = boardService.selectOne(bdNo);
+        boardService.update_view_cnt(boardVO);
+
         model.addAttribute("BoardVO", boardVO);
         model.addAttribute("bdNo", bdNo);
 
