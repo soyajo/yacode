@@ -42,7 +42,7 @@ public class BoardController extends BaseController {
         PageUtil pageUtil = new PageUtil(boardVOS);
 
         model.addAttribute("pageUtil", pageUtil);
-        model.addAttribute("boardVOS", boardVOS);
+        model.addAttribute("boardVOS", boardVOS.getContent());
         model.addAttribute("searchTitle", searchTitle);
 
         return "blog/board/list";
@@ -82,6 +82,13 @@ public class BoardController extends BaseController {
 
     @GetMapping(value = "view.html")
     public String view(Model model, @RequestParam("bdNo") Integer bdNo) {
+
+        /**
+         * textarea 개행 처리 방법
+         * https://solbel.tistory.com/1476
+         */
+        String nlString = System.getProperty("line.separator").toString();
+        model.addAttribute("nlString",nlString);
 
         BoardVO boardVO = boardService.selectOne(bdNo);
         model.addAttribute("BoardVO", boardVO);

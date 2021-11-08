@@ -44,7 +44,7 @@
                                 </colgroup>
                                 <tr>
                                     <th> 내용</th>
-                                    <td th:text="${BoardVO.bdContents}">
+                                    <td th:utext="${#strings.replace(BoardVO.bdContents, nlString,'&lt;br /&gt;')}">
                                         내용
                                     </td>
                                 </tr>

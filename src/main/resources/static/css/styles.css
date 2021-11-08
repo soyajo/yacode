@@ -10242,3 +10242,7 @@ form .row:first-child .floating-label-form-group {
 .tt-form{
   height: 300px!important;
 }
+
+.table{
+  font-size: 12px;
+}
