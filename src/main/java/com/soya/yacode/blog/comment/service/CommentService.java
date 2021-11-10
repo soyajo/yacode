@@ -1,5 +1,11 @@
 package com.soya.yacode.blog.comment.service;
 
+import com.soya.yacode.blog.comment.vo.CommentVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
 /**
  * 1. 프로젝트명 : yacode
  * 2. 패키지명   : com.soya.yacode.blog.comment.service
@@ -8,4 +14,14 @@ package com.soya.yacode.blog.comment.service;
  * 5. 이메일     : whthdi4693@naver.com
  */
 public interface CommentService {
+
+    void cmtInsert(CommentVO commentVO);
+
+    CommentVO selectOne(Integer cmt_no);
+
+    CommentVO selectOne_sec(CommentVO commentVO);
+
+    List<CommentVO> selectAll_sec(CommentVO commentVO);
+
+    Page<CommentVO> selectAll(Pageable pageable);
 }

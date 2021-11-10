@@ -1,5 +1,6 @@
 package com.soya.yacode.blog.comment.vo;
 
+import com.soya.common.vo.BaseVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 1. 프로젝트명 : yacode
@@ -21,7 +23,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "comment")
-public class CommentVO {
+public class CommentVO extends BaseVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +34,5 @@ public class CommentVO {
     @Column(columnDefinition = "TEXT")
     private String cmtContents;
 
+    private Date regDate;
 }

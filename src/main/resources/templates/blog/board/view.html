@@ -17,6 +17,34 @@
             // location.href = './';
 
         }
+        function cmt_fn() {
+            let cmtContents = $('#cmtContents').val();
+            console.log(cmtContents);
+            let url = "./cmtInsertAction.ff";
+            $.ajax({
+                url : url,
+                data: {"cmtContents":cmtContents},
+                method: 'POST',
+                success:function (result) {
+                    if (result == "1") {
+                        alert("댓글보내기 성공");
+                    } else {
+                        alert("댓글보내기 실패");
+                    }
+                },
+                error: function () {
+                    alert("댓글보내기 실패");
+                }
+            })
+        }
+        function cmt_update(result) {
+
+            let result1 = result.split(',');
+            let cmtNo = result1[0];
+            if (result1[1] != null) {
+                let cmtSecNo = result1[1];
+            }
+        }
         /*]]>*/
     </script>
 </head>
@@ -52,6 +80,47 @@
                             <div class="float-right">
                                 <button class="btn btn-success" type="button" onclick="insert_fn();">수정</button>
                                 <button class="btn btn-danger" type="button" onclick="delete_fn();">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--여기 댓글기능-->
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <span>댓글</span>
+                                <hr/>
+                                <textarea class="form-control mt-2 h-100" id="cmtContents"></textarea>
+                                <button type="button" class="btn btn-sm btn-success float-right mt-2" onclick="cmt_fn();" >등록</button>
+                            </div>
+                            <div class="form-group mt-5">
+                                <ul class="list-group" th:each="item, images : ${commentVOS}">
+                                    <li class="list-group-item" th:if="${item.cmtSecNo == null}">
+                                        <div class="" >
+                                            <span th:utext="조소야"></span>
+                                            <small th:utext="${#dates.format(item.regDate,'yyyy-MM-dd HH:mm')}"></small>
+                                            <i class="bi bi-pencil update-comment_btn" aria-hidden="true" th:onclick="cmt_update('[[${item.cmtNo}]]')"></i>
+                                            <i class="bi bi-eraser-fill"></i>
+                                            <i class="bi bi-reply-all"></i>
+                                        </div>
+                                        <div th:text="${item.cmtContents}" ></div>
+                                        <div style="display:none;" th:id="div_update_+${item.cmtNo}">
+                                            <textarea th:utext="${item.cmtContents}"></textarea>
+                                            <button type="button" class="btn btn-sm btn-success">등록</button>
+                                            <button type="button" class="btn btn-sm btn-danger">취소</button>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" th:if="${item.cmtSecNo != null}" style="padding-left: 30px;">
+                                        <div class="" >
+                                            <span th:text="'└ ' + 조소야 "></span>
+                                            <small th:utext="${#dates.format(item.regDate,'yyyy-MM-dd HH:mm')}"></small>
+                                            <i class="bi bi-pencil update-comment_btn" aria-hidden="true" th:onclick="cmt_update('[[${item.cmtNo}]],[[${item.cmtSecNo}]]')"></i>
+                                            <i class="bi bi-eraser-fill"></i>
+                                            <i class="bi bi-reply-all"></i>
+                                        </div>
+                                        <div th:text="${item.cmtContents}" ></div>
+
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

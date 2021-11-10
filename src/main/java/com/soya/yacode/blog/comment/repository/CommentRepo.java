@@ -1,8 +1,13 @@
 package com.soya.yacode.blog.comment.repository;
 
+import com.soya.yacode.blog.board.vo.BoardVO;
 import com.soya.yacode.blog.comment.vo.CommentVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 1. 프로젝트명 : yacode
@@ -14,5 +19,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepo extends JpaRepository<CommentVO, Integer> {
 
+    Page<CommentVO> findAllByOrderByCmtNoAscCmtSecNoAsc(Pageable pageable);
 
+    List<CommentVO> findAllByCmtNoAndCmtSecNoIsNotNull(CommentVO commentVO);
+
+    CommentVO findByCmtNo(Integer cmt_no);
 }

@@ -36,9 +36,21 @@ public class BaseVO implements Serializable {
      */
     private String actionUrl;
 
+    private String errorMsg;
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
     public HashMap<String, Object> getTemp() {
         return temp;
     }
+
+
 
     public void setTemp(HashMap<String, Object> temp) {
         this.temp = temp;
