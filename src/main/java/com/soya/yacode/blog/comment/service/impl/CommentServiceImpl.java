@@ -64,8 +64,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Page<CommentVO> selectAll(Pageable pageable) {
-        Page<CommentVO> commentVOS = commentRepo.findAllByOrderByCmtNoAscCmtSecNoAsc(pageable);
+    public Page<CommentVO> selectAll(Integer bdNo, Pageable pageable) {
+        Page<CommentVO> commentVOS = commentRepo.findAllByBdNoOrderByCmtNoAscCmtSecNoAsc(bdNo, pageable);
         if (commentVOS != null && commentVOS.getContent().size() > 0) {
             return commentVOS;
         } else {

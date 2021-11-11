@@ -23,5 +23,5 @@ public interface CommentService {
 
     List<CommentVO> selectAll_sec(CommentVO commentVO);
 
-    Page<CommentVO> selectAll(Pageable pageable);
+    Page<CommentVO> selectAll(Integer bdNo , Pageable pageable);
 }

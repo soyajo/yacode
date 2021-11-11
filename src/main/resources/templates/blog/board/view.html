@@ -19,11 +19,14 @@
         }
         function cmt_fn() {
             let cmtContents = $('#cmtContents').val();
-            console.log(cmtContents);
+            // console.log(cmtContents);
             let url = "./cmtInsertAction.ff";
             $.ajax({
                 url : url,
-                data: {"cmtContents":cmtContents},
+                data: {
+                    "cmtContents":cmtContents,
+                    "bdNo":bdNo
+                },
                 method: 'POST',
                 success:function (result) {
                     if (result == "1") {

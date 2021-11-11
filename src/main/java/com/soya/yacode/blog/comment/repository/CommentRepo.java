@@ -19,7 +19,7 @@ import java.util.List;
 @Repository
 public interface CommentRepo extends JpaRepository<CommentVO, Integer> {
 
-    Page<CommentVO> findAllByOrderByCmtNoAscCmtSecNoAsc(Pageable pageable);
+    Page<CommentVO> findAllByBdNoOrderByCmtNoAscCmtSecNoAsc(Integer bdNo, Pageable pageable);
 
     List<CommentVO> findAllByCmtNoAndCmtSecNoIsNotNull(CommentVO commentVO);
 

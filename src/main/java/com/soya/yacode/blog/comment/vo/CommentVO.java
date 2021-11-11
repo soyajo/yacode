@@ -1,6 +1,8 @@
 package com.soya.yacode.blog.comment.vo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.soya.common.vo.BaseVO;
+import com.soya.yacode.blog.board.vo.BoardVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,4 +37,11 @@ public class CommentVO extends BaseVO {
     private String cmtContents;
 
     private Date regDate;
+
+    private Integer bdNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(updatable = false, insertable = false, name = "bdNo")
+    @JsonBackReference
+    private BoardVO boardVO;
 }

@@ -100,7 +100,7 @@ public class BoardController extends BaseController {
         model.addAttribute("BoardVO", boardVO);
         model.addAttribute("bdNo", bdNo);
 
-        Page<CommentVO> commentVOS = commentService.selectAll(pageable);
+        Page<CommentVO> commentVOS = commentService.selectAll(bdNo, pageable);
 
         if (commentVOS != null && commentVOS.getContent().size() > 0) {
             PageUtil pageUtil = new PageUtil(commentVOS);
@@ -113,9 +113,10 @@ public class BoardController extends BaseController {
 
     @PostMapping(value = "/cmtInsertAction.ff")
     @ResponseBody
-    public String cmtInsertAction(String cmtContents) {
+    public String cmtInsertAction(String cmtContents,Integer bdNo) {
 
         CommentVO commentVO = new CommentVO();
+        commentVO.setBdNo(bdNo);
         commentVO.setCmtContents(cmtContents);
 
 
