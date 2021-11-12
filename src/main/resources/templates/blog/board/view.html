@@ -9,8 +9,13 @@
 
         })
         function delete_fn() {
-            confirm()
-            $('#form_fn').attr('action','./deleteAction.html').submit();
+            let delete_confirm = confirm("댓글을 삭제 하시겠습니까?");
+            if(delete_confirm == true){
+                $('#form_fn').attr('action','./deleteAction.html').submit();
+                document.write("삭제 되었습니다.");
+            } else if(delete_confirm == false){
+                return false;
+            }
         }
         function insert_fn() {
             location.href = './insert.html?bdNo=' + bdNo;
@@ -30,19 +35,21 @@
                 method: 'POST',
                 success:function (result) {
                     if (result == "1") {
-                        alert("댓글보내기 성공");
+                        alert("등록 완료");
+                        location.reload();
                     } else {
-                        alert("댓글보내기 실패");
+                        alert("등록 실패");
                     }
                 },
                 error: function () {
-                    alert("댓글보내기 실패");
+                    alert("등록 실패");
                 }
             })
         }
         function cmt_update(cmtNo) {
             $("div[id^='div_update_']").css('display','none');
             $('#div_update_'+cmtNo).css('display','block');
+            $("div[id^='div_cmtContents_']").css('display','block');
             $('#div_cmtContents_'+cmtNo).css('display','none');
             $("li[id^='li_insert_']").css('display','none');
         }
@@ -52,9 +59,32 @@
             $("li[id^='li_insert_']").css('display','none');
         }
         function cmt_update_update_fn(cmtNo) {
-            let cmtContents = $('#div_cmtContents_' + cmtNo).val();
+            let cmtContents = $('#cmt_update_textarea_' + cmtNo).val();
+            // console.log(cmtContents);
+            let url = "./cmtUpdateAction.ff";
             $.ajax({
-
+                url : url,
+                data: {
+                    "cmtNo":cmtNo,
+                    "cmtContents":cmtContents,
+                    "bdNo":bdNo
+                },
+                method: 'POST',
+                success:function (result) {
+                    if (result != "") {
+                        $('#div_cmtContents_'+cmtNo).text(result);
+                        $("div[id^='div_update_']").css('display','none');
+                        $('#div_cmtContents_'+cmtNo).css('display','block');
+                        $("li[id^='li_insert_']").css('display','none');
+                        alert("수정 완료");
+                    } else {
+                        alert("수정 실패");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert("수정 실패");
+                }
             })
         }
         function cmt_insert(cmtNo) {
@@ -68,13 +98,60 @@
             $("div[id^='div_update_']").css('display','none');
         }
         function cmt_insert_insert_fn(cmtNo) {
-
+            let cmtContents = $('#cmt_insert_textarea_' + cmtNo).val();
+            // console.log(cmtContents);
+            let url = "./cmtInsertAction.ff";
+            $.ajax({
+                url : url,
+                data: {
+                    "cmtNo":cmtNo,
+                    "cmtContents":cmtContents,
+                    "bdNo":bdNo
+                },
+                method: 'POST',
+                success:function (result) {
+                    if (result != "") {
+                        alert("등록 완료");
+                        location.reload();
+                    } else {
+                        alert("등록 실패");
+                        return false;
+                    }
+                },
+                error: function () {
+                    alert("등록 실패");
+                }
+            });
         }
         function cmt_delete(cmtNo) {
+            let delete_confirm = confirm("댓글을 삭제 하시겠습니까?");
+            if(delete_confirm == true){
+                let url = "./cmtDelteAction.ff";
+                $.ajax({
+                    url : url,
+                    data: {
+                        "cmtNo":cmtNo
+                    },
+                    method: 'POST',
+                    success:function (result) {
+                        if (result != "") {
+                            alert("삭제 완료");
+                            location.reload();
+                        } else {
+                            alert("삭제 실패");
+                            return false;
+                        }
+                    },
+                    error: function () {
+                        alert("삭제 실패");
+                    }
+                });
 
+            }
+            else if(delete_confirm == false){
+                return false;
+            }
         }
-
-
         /*]]>*/
     </script>
 </head>
@@ -124,9 +201,9 @@
                             </div>
                             <div class="form-group mt-5">
                                 <ul class="list-group" th:each="item, images : ${commentVOS}">
-                                    <li class="list-group-item" th:if="${item.cmtSecNo == null}">
-                                        <div class="" >
-                                            <span th:utext="조소야"></span>
+                                    <li class="list-group-item" th:id="li_cmt_+${item.cmtNo}" th:if="${item.cmtSecNo == null}">
+                                        <div th:id="div_cmt_+${item.cmtNo}" >
+                                            <span th:id="span_cmt_+${item.cmtNo}" th:utext="${item.cmtNo}"></span>
                                             <small th:utext="${#dates.format(item.regDate,'yyyy-MM-dd HH:mm')}"></small>
                                             <i class="bi bi-pencil update-comment_btn" aria-hidden="true" th:onclick="cmt_update('[[${item.cmtNo}]]')"></i>
                                             <i class="bi bi-eraser-fill " aria-hidden="true" th:onclick="cmt_delete('[[${item.cmtNo}]]')"></i>
@@ -143,29 +220,30 @@
                                         <div >
                                             <textarea class="form-control" th:id="cmt_insert_textarea_+${item.cmtNo}"></textarea>
                                             <button type="button" class="btn btn-sm btn-danger float-right mt-2" th:onclick="cmt_insert_cancel_fn('[[${item.cmtNo}]]')">취소</button>
-                                            <button type="button" class="btn btn-sm btn-success float-right mt-2 mr-2" th:onclick="cmt_insert_update_fn('[[${item.cmtNo}]]')">등록</button>
+                                            <button type="button" class="btn btn-sm btn-success float-right mt-2 mr-2" th:onclick="cmt_insert_insert_fn('[[${item.cmtNo}]]')">등록</button>
                                         </div>
                                     </li>
-                                    <li class="list-group-item" th:if="${item.cmtSecNo != null}" style="padding-left: 30px;">
-                                        <div class="">
-                                            <span th:text="'└ ' + 조소야 "></span>
+                                    <li th:name="li_cmt_sec_+${item.cmtSecNo}" class="list-group-item" th:if="${item.cmtSecNo != null}" style="padding-left: 30px;">
+                                        <div th:id="div_cmt_+${item.cmtNo}" >
+                                            <span th:id="span_cmt_+${item.cmtNo}" th:text="'└ ' + ${item.cmtNo} "></span>
                                             <small th:utext="${#dates.format(item.regDate,'yyyy-MM-dd HH:mm')}"></small>
                                             <i class="bi bi-pencil update-comment_btn" aria-hidden="true" th:onclick="cmt_update('[[${item.cmtNo}]]')"></i>
                                             <i class="bi bi-eraser-fill " aria-hidden="true" th:onclick="cmt_delete('[[${item.cmtNo}]]')"></i>
                                             <i class="bi bi-reply-all" aria-hidden="true" th:onclick="cmt_insert('[[${item.cmtNo}]]')"></i>
+                                            <small class="badge badge-primary" th:utext="${item.cmtSecNo}+' 에게'"></small>
                                         </div>
-                                        <div th:id="div_cmtContents_+${item.cmtNo}" th:text="${item.cmtContents}" ></div>
+                                        <div th:id="div_cmtContents_+${item.cmtNo}" th:utext="${item.cmtContents}" ></div>
                                         <div style="display:none;" th:id="div_update_+${item.cmtNo}">
                                             <textarea class="form-control" th:utext="${item.cmtContents}" th:id="cmt_update_textarea_+${item.cmtNo}"></textarea>
                                             <button type="button" class="btn btn-sm btn-danger float-right mt-2" th:onclick="cmt_update_cancel_fn('[[${item.cmtNo}]]')">취소</button>
                                             <button type="button" class="btn btn-sm btn-success float-right mt-2 mr-2" th:onclick="cmt_update_update_fn('[[${item.cmtNo}]]')">수정</button>
                                         </div>
                                     </li>
-                                    <li th:id="li_insert_+${item.cmtNo}" class="list-group-item" th:if="${item.cmtSecNo != null}" style="padding-left: 30px;display: none;">
+                                    <li th:id="li_insert_+${item.cmtNo}" th:name="li_insert_sec_+${item.cmtSecNo}" class="list-group-item" th:if="${item.cmtSecNo != null}" style="padding-left: 30px;display: none;">
                                         <div >
                                             <textarea class="form-control" th:id="cmt_insert_textarea_+${item.cmtNo}"></textarea>
                                             <button type="button" class="btn btn-sm btn-danger float-right mt-2" th:onclick="cmt_insert_cancel_fn('[[${item.cmtNo}]]')">취소</button>
-                                            <button type="button" class="btn btn-sm btn-success float-right mt-2 mr-2" th:onclick="cmt_insert_update_fn('[[${item.cmtNo}]]')">등록</button>
+                                            <button type="button" class="btn btn-sm btn-success float-right mt-2 mr-2" th:onclick="cmt_insert_insert_fn('[[${item.cmtNo}]]')">등록</button>
                                         </div>
                                     </li>
                                 </ul>

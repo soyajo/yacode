@@ -1,5 +1,6 @@
 package com.soya.yacode.blog.comment.service.impl;
 
+import com.soya.common.util.CustomBeanUtils;
 import com.soya.yacode.blog.category.service.CategoryService;
 import com.soya.yacode.blog.comment.repository.CommentRepo;
 import com.soya.yacode.blog.comment.service.CommentService;
@@ -10,9 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 1. 프로젝트명 : yacode
@@ -32,8 +31,10 @@ public class CommentServiceImpl implements CommentService {
     public void cmtInsert(CommentVO commentVO) {
         commentVO.setRegDate(new Date());
 
-        if (commentVO != null) {
-            CommentVO commentVO1 = commentRepo.save(commentVO);
+        if (commentVO != null && commentVO.getCmtSecNo() == null) {
+            commentRepo.save(commentVO);
+        } else if (commentVO != null && commentVO.getCmtSecNo() != null) {
+            commentRepo.save(commentVO);
         }
     }
 
@@ -66,10 +67,39 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Page<CommentVO> selectAll(Integer bdNo, Pageable pageable) {
         Page<CommentVO> commentVOS = commentRepo.findAllByBdNoOrderByCmtNoAscCmtSecNoAsc(bdNo, pageable);
+        List<CommentVO> plist = new ArrayList<>();
+        List<CommentVO> chlist = new ArrayList<>();
+        commentVOS.stream().forEach(c -> {
+            if (c.getCmtSecNo() == null) {
+
+
+            }
+        });
+
+
         if (commentVOS != null && commentVOS.getContent().size() > 0) {
             return commentVOS;
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public void update(CommentVO commentVO) {
+        if (commentVO != null && commentVO.getCmtNo() != null) {
+            CommentVO commentVO1 = this.selectOne(commentVO.getCmtNo());
+            if (commentVO1 != null) {
+                CustomBeanUtils.copyProperties(commentVO, commentVO1);
+            }
+        }
+    }
+
+    @Override
+    public void deleteOne(Integer cmtNo) {
+
+        if (cmtNo != null) {
+            commentRepo.deleteAllByCmtSecNo(cmtNo);
+            commentRepo.deleteByCmtNo(cmtNo);
         }
     }
 }

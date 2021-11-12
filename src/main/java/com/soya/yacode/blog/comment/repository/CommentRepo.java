@@ -24,4 +24,8 @@ public interface CommentRepo extends JpaRepository<CommentVO, Integer> {
     List<CommentVO> findAllByCmtNoAndCmtSecNoIsNotNull(CommentVO commentVO);
 
     CommentVO findByCmtNo(Integer cmt_no);
+
+    void deleteByCmtNo(Integer cmtNo);
+
+    void deleteAllByCmtSecNo(Integer cmtNo);
 }

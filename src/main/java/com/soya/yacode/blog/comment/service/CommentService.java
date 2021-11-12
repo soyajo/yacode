@@ -24,4 +24,8 @@ public interface CommentService {
     List<CommentVO> selectAll_sec(CommentVO commentVO);
 
     Page<CommentVO> selectAll(Integer bdNo , Pageable pageable);
+
+    void update(CommentVO commentVO);
+
+    void deleteOne(Integer cmtNo);
 }

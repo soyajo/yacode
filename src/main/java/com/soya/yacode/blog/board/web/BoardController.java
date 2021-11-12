@@ -1,5 +1,6 @@
 package com.soya.yacode.blog.board.web;
 
+import com.google.gson.JsonObject;
 import com.soya.common.controller.BaseController;
 import com.soya.common.util.PageUtil;
 import com.soya.common.vo.BaseVO;
@@ -8,6 +9,9 @@ import com.soya.yacode.blog.board.service.BoardService;
 import com.soya.yacode.blog.board.vo.BoardVO;
 import com.soya.yacode.blog.comment.service.CommentService;
 import com.soya.yacode.blog.comment.vo.CommentVO;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.codehaus.jettison.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +21,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 1. 프로젝트명 : yacode
@@ -113,18 +120,81 @@ public class BoardController extends BaseController {
 
     @PostMapping(value = "/cmtInsertAction.ff")
     @ResponseBody
-    public String cmtInsertAction(String cmtContents,Integer bdNo) {
+    public String cmtInsertAction(String cmtContents, Integer bdNo, Integer cmtNo) {
 
         CommentVO commentVO = new CommentVO();
         commentVO.setBdNo(bdNo);
         commentVO.setCmtContents(cmtContents);
+        commentVO.setCmtSecNo(cmtNo);
 
 
-        if (commentVO != null  && commentVO.getCmtContents()!= null && !commentVO.getCmtContents().trim().equals("")) {
+        if (commentVO != null && commentVO.getCmtContents() != null && !commentVO.getCmtContents().trim().equals("")) {
             commentService.cmtInsert(commentVO);
             return "1";
         } else {
             return "";
         }
     }
+
+    @ResponseBody
+    @PostMapping(value = "/cmtUpdateAction.ff")
+    public String cmtUpdateAction(String cmtContents, Integer bdNo, Integer cmtNo) {
+
+        if (cmtNo != null && cmtContents != null && bdNo != null && !cmtContents.trim().equals("")) {
+            CommentVO commentVO = new CommentVO();
+            commentVO.setBdNo(bdNo);
+            commentVO.setCmtNo(cmtNo);
+            commentVO.setCmtContents(cmtContents);
+            commentService.update(commentVO);
+
+            return commentVO.getCmtContents();
+        }
+
+        return "";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/cmtDelteAction.ff")
+    public String cmtDelteAction(Integer cmtNo) {
+
+        if (cmtNo != null) {
+            commentService.deleteOne(cmtNo);
+
+            return "1";
+        } else {
+            return "";
+        }
+
+    }
+
+//    @ResponseBody
+//    @PostMapping(value = "/cmtSecInsertAction.ff")
+//    public String cmtSecInsertAction(String cmtContents, Integer bdNo, Integer cmtNo) throws JSONException {
+//        if (cmtNo != null && cmtContents != null && bdNo != null && !cmtContents.trim().equals("")) {
+//            CommentVO commentVO = new CommentVO();
+//            commentVO.setBdNo(bdNo);
+//            commentVO.setCmtNo(cmtNo);
+//            commentVO.setCmtContents(cmtContents);
+//            Map<String, Object> map = new HashMap<>();
+//
+//            map.put("bdNo", commentVO1.getBdNo());
+//            map.put("cmtNo", commentVO1.getCmtNo());
+//            map.put("cmtContents", commentVO1.getCmtContents());
+//            map.put("evtName", commentVO1.getCmtSecNo());
+//            map.put("evtCode", commentVO1.getRegDate());
+//
+//            JSONObject jsonObject = new JSONObject();
+//
+//            if (map != null) {
+//                for( Map.Entry<String, Object> entry : map.entrySet() ) {
+//                    String key = entry.getKey();
+//                    Object value = entry.getValue();
+//                    jsonObject.put(key, value);
+//                }
+//                String jsonString = jsonObject.toString();
+//                return jsonString;
+//            }
+//        }
+//        return "";
+//    }
 }
