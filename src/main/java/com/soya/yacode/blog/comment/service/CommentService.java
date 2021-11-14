@@ -28,4 +28,5 @@ public interface CommentService {
     void update(CommentVO commentVO);
 
     void deleteOne(Integer cmtNo);
+
 }
