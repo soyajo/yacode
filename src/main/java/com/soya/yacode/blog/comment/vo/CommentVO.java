@@ -44,4 +44,8 @@ public class CommentVO extends BaseVO {
     @JoinColumn(updatable = false, insertable = false, name = "bdNo")
     @JsonBackReference
     private BoardVO boardVO;
+
+    private Integer cmt_depth;
+
+    private Integer cmt_order;
 }

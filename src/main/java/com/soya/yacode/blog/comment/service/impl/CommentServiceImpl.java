@@ -67,14 +67,14 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Page<CommentVO> selectAll(Integer bdNo, Pageable pageable) {
         Page<CommentVO> commentVOS = commentRepo.findAllByBdNoOrderByCmtNoAscCmtSecNoAsc(bdNo, pageable);
-        List<CommentVO> plist = new ArrayList<>();
-        List<CommentVO> chlist = new ArrayList<>();
-        commentVOS.stream().forEach(c -> {
-            if (c.getCmtSecNo() == null) {
-
-
-            }
-        });
+//        List<CommentVO> plist = new ArrayList<>();
+//        List<CommentVO> chlist = new ArrayList<>();
+//        commentVOS.stream().forEach(c -> {
+//            if (c.getCmtSecNo() == null) {
+//
+//
+//            }
+//        });
 
 
         if (commentVOS != null && commentVOS.getContent().size() > 0) {
