@@ -26,7 +26,6 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentRepo commentRepo;
 
-
     @Override
     public void cmtInsert(CommentVO commentVO) {
         commentVO.setRegDate(new Date());
